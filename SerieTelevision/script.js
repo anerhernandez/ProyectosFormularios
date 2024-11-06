@@ -1,7 +1,7 @@
-let Preguntas = document.getElementById("Preguntas");
+let pregunas = document.getElementById("Preguntas");
 
-Preguntas.addEventListener("submit", () => {
-    Preguntas.get()
+pregunas.addEventListener("submit", () => {
+  pregunas.get()
   
     // handle submit
   });
