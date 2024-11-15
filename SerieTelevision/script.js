@@ -24,41 +24,40 @@ function checarcorrectos(){
      "Pregunta 6", "Pregunta 7", "Pregunta 8", "Pregunta 9", "Pregunta 10", 
     ]
   let ya_chequeados = []
-  let chequeados = document.querySelectorAll("input[type=radio]:checked").forEach(element =>{
+  let chequeados = document.querySelectorAll("input[type=radio]:checked");
+  chequeados.forEach(element =>{
     if (respuestas.indexOf(element.value) > -1) {
-      console.log(element.name)
-      console.log("\"" + element.value + "\"")
-      console.log("Respuesta Correcta")
-      console.log("----------------------")
-      let span = document.createElement("span")
-      span.setAttribute("id", "bien")
-      span.textContent = " ✅"
-      element.parentNode.insertBefore(span, element.nextSibling.nextSibling.nextSibling)
-      ya_chequeados.push(element.name)
+      // let span = document.createElement("span")
+      // span.setAttribute("id", "bien")
+      // span.textContent = " ✅"
+      // element.parentNode.insertBefore(span, element.nextSibling.nextSibling.nextSibling)
     } else {
-      console.log(element.name)
-      console.log("\"" + element.value + "\"")
-      console.log("Respuesta Incorrecta")
-      console.log("----------------------")
-      let span = document.createElement("span")
-      span.setAttribute("id", "mal")
-      span.textContent = " ❌"
-      element.parentNode.insertBefore(span, element.nextSibling.nextSibling.nextSibling)
-      ya_chequeados.push(element.name)
+      // let span = document.createElement("span")
+      // span.setAttribute("id", "mal")
+      // span.textContent = " ❌"
+      // element.parentNode.insertBefore(span, element.nextSibling.nextSibling.nextSibling)
     }
+    ya_chequeados.push(element.name)
   });
-  console.log(ya_chequeados)
   for (let i = 0; i < ya_chequeados.length; i++) {
     if (total_preguntas.indexOf(ya_chequeados[i]) != -1) {
       total_preguntas.splice(total_preguntas.indexOf(ya_chequeados[i]), 1)
     }
   }
-  console.log(total_preguntas)
-  total_preguntas.forEach(element => {
-    let nombre = document.getElementsByName(element)
-    console.log(nombre)
-    nombre[0].parentNode.setAttribute("class", "colores")
-    console.log(nombre[0].parentNode)
-  });
+  
+  if (chequeados.length < total_preguntas.length) {
+    total_preguntas.forEach(element => {
+      let nombre = document.getElementsByName(element)
+      let span = document.createElement("span")
+      span.setAttribute("id", "vacio")
+      span.textContent = "Tiene que rellenar este campo";
+      nombre[0].parentElement.prepend(span)
+    });
+  } else {
+    document.querySelectorAll("span[id=vacio]").forEach(element => {
+      console.console.log(element);
+      element.textContent = "";
+    });
+  }
   
 }
