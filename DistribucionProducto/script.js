@@ -2,13 +2,12 @@ document.getElementById("enviar").addEventListener("click", function (event) {
     event.preventDefault();
 
     let fecha = document.getElementById("fecha");
-    let cocinero = document.getElementById("cocinero");
+    let cocinero = document.getElementById("cocinero").value;
     let destinatario = document.getElementById("destinatario");
     let gramos = document.getElementById("gramos");
     let composicion = document.getElementById("composicion");
     let cuenta = document.getElementById("cuenta");
 
-    console.log(fecha.value)
     console.log(cocinero.value)
     console.log(destinatario.value)
     console.log(gramos.value)
@@ -23,17 +22,28 @@ document.getElementById("enviar").addEventListener("click", function (event) {
     let composicion_chk = 0;
     let cuenta_chk = 0;
 
-    function isValidDateFormat(dateString) {
-        const regex = /^(\d{2})-(\d{2})-(\d{5})$/;
-        return regex.test(dateString);
+    //validate fecha
+    function isValidDateFormat(fecha) {
+        fecha = new Date(fecha.value)
+        fecha = (fecha).toLocaleDateString('en-GB')
+        console.log(fecha)
+        return fecha
     }
-    //regex fecha_chk
-    if (!isNaN(fecha.getTime())) {
-        
+    fecha = isValidDateFormat(fecha)
+
+    if (fecha !== "Invalid Date") {
+        console.log("ta bien")
+        fecha_chk = 1
     } else {
-        
+       console.log("ta mal :(") 
     }
+    
     //regex cocinero_chk
+    let text = new RegExp('([A-Z]{2})(' + '\\' + 'W{1})(' + '\\' + 'd{4})');
+    let resultado = text.test(cocinero)
+    console.log(resultado)
+
+
 
     //regex destinatario_chk
 
