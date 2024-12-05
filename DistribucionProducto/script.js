@@ -3,17 +3,10 @@ document.getElementById("enviar").addEventListener("click", function (event) {
 
     let fecha = document.getElementById("fecha");
     let cocinero = document.getElementById("cocinero").value;
-    let destinatario = document.getElementById("destinatario");
-    let gramos = document.getElementById("gramos");
-    let composicion = document.getElementById("composicion");
+    let destinatario = document.getElementById("destinatario").value;
+    let gramos = parseInt(document.getElementById("gramos").value);
+    let composicion = document.getElementById("composicion").value;
     let cuenta = document.getElementById("cuenta");
-
-    console.log(cocinero.value)
-    console.log(destinatario.value)
-    console.log(gramos.value)
-    console.log(composicion.value)
-    console.log(cuenta.value)
-
 
     let fecha_chk = 0;
     let cocinero_chk = 0;
@@ -26,31 +19,48 @@ document.getElementById("enviar").addEventListener("click", function (event) {
     function isValidDateFormat(fecha) {
         fecha = new Date(fecha.value)
         fecha = (fecha).toLocaleDateString('en-GB')
-        console.log(fecha)
         return fecha
     }
     fecha = isValidDateFormat(fecha)
 
     if (fecha !== "Invalid Date") {
-        console.log("ta bien")
+        document.getElementById("sfecha").textContent = "ta bien :)"
         fecha_chk = 1
     } else {
-       console.log("ta mal :(") 
+        document.getElementById("sfecha").textContent = "ta mal :("
     }
     
     //regex cocinero_chk
-    let text = new RegExp('([A-Z]{2})(' + '\\' + 'W{1})(' + '\\' + 'd{4})');
-    let resultado = text.test(cocinero)
-    console.log(resultado)
-
-
+    let text_coci = new RegExp('([A-Z]{2})(' + '\\' + 'W{1})(' + '\\' + 'd{4})');
+    let resultado_coci = text_coci.test(cocinero)
+    if (resultado_coci) {
+        document.getElementById("scocinero").textContent = "Campo validado"
+    } else {
+        document.getElementById("scocinero").textContent = "Campo NO validado"
+    }
 
     //regex destinatario_chk
-
+    let text_desti = new RegExp('([A-Z]{2,3})(_)([a-z]{12})(:)(' + '\\' + 'd{4})');
+    let resultado_desti = text_desti.test(destinatario)
+    if (resultado_desti) {
+        document.getElementById("sdestinatario").textContent = "Campo validado"
+    } else {
+        document.getElementById("sdestinatario").textContent = "Campo NO validado"
+    }
     //regex gramos_chk
-
+    if (gramos < 100 || gramos > 5000) {
+        document.getElementById("sgramos").textContent = "Los gramos van de 100 a 5000"
+    } else {
+        document.getElementById("sgramos").textContent = "gramos validados"
+    }
     //regex composicion_chk
 
+    //Composición: estará formado por una cantidad en gramos seguida de dos conjuntos de una o    
+    // dos letras seguidas o no de un número. (ej. 200gC3OH7)
+    let text_comp = '(\\' + 'd{3,4})(g)([a-zA-Z]{1,2})(' + '\\' + 'd)([a-zA-Z]{1,2})(' + '\\' + 'd)';
+    let resultado_comp = composicion.match(text_comp)
+    console.log()
+    console.log(resultado_comp)
     //regex cuenta_chk
 
 
