@@ -48,8 +48,21 @@
 
         <br><br>
 
-        <i>Patrón Cuenta: <b>Cocinero: será un nombre en clave formado por dos letras en mayúscula, un símbolo y cuatro    
-            dígitos (ej. WW$1234)</b></i><br>
+        <i>Patrón Cuenta: 
+            Número de cuenta de EEUU: supongamos que un número de cuenta estadounidense tiene el    
+            siguiente formato:<br>
+            <b>•Dos letras: suponemos que el valor de cada letra es del 1 al 26 (no hay ñ ni    
+            ll).<br>
+            •Dos dígitos: debe corresponderse con la suma de la primera letra y la    
+            segunda: en caso de que sea menor que 10 se pone el 0 delante.<br>
+            •Un guión.<br>   
+            •Doce dígitos de cuenta.<br>   
+            •Un guión.<br>   
+            •Dos dígitos de control: los dos primeros deben ser la suma de los 6 primeros   
+            dígitos de la cuenta dividido entre 6 y extrayendo solamente su parte entera;
+            y los dos últimos exactamente igual, pero con los 6 siguientes.<br>
+            •Si el número está correcto se colocará en un campo de texto al lado del    
+            anterior, pero sin guiones: solamente los números y las letra</b></i><br>
         <span id="scuenta"></span><br>
         <label for="cuenta">Número de cuenta (EEUU)</label>
         <input type="text" name="cuenta" id="cuenta">

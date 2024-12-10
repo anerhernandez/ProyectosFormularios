@@ -97,33 +97,41 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         let letra1 = (resultado_cuenta[1]).toLowerCase();
         let letra2 = (resultado_cuenta[2]).toLowerCase();
         let sumaletras = 0
-        console.log(resultado_cuenta)
         Object.entries(letras_valores).forEach(([key, value]) => {
             if (key == letra1 || key == letra2) {
                 sumaletras += value
             }
           });
-        console.log(sumaletras)
         if (sumaletras != resultado_cuenta[3]) {
             console.log("La suma de letras ta mal mamaguebo. Asegúrate de si la suma de letras da menor que 10, escribir un 0 delante")
         } else {
             console.log("La suma de letras ta bien, gué grande")
-            let sumadigitos1 = 0
-            let sumadigitos2 = 0
-            
+            let primeros_6 = resultado_cuenta[5].split("")
+            let sumaprimeros6 = 0
+            let ultimos_6 = resultado_cuenta[6].split("")
+            let sumaultimos6 = 0
+            primeros_6.forEach(element => {
+                sumaprimeros6 += parseInt(element)
+            });
+            ultimos_6.forEach(element => {
+                sumaultimos6 += parseInt(element)
+            });
+            if ((sumaprimeros6 % 6 == resultado_cuenta[8]) && (sumaultimos6 % 6 == resultado_cuenta[9])) {
+                console.log("El calculo de los números ta correcto, qué crack")
+                cuenta_chk = 1
+                document.getElementById("scuenta").textContent = "Patrón de cuenta válido y valores correctos"
+                document.getElementById("scuenta").style.color = "green"
+            } else {
+                console.log("El calculo de los números ta muy incorrecto, mira a ver qué tienes mal mamabicho")
+                document.getElementById("scuenta").textContent = "Patrón de cuenta válido pero valores incorrectos"
+                document.getElementById("scuenta").style.color = "red"
+            }
         }
-
-
-
-
-
-
-        document.getElementById("scuenta").textContent = "Patrón de cuenta válido"
-        document.getElementById("scuenta").style.color = "green"
-        composicion_chk = 1
     } else {
         document.getElementById("scuenta").textContent = "Patrón de cuenta erróneo"
         document.getElementById("scuenta").style.color = "red"
     }
-
+    if (fecha_chk && cocinero_chk && destinatario_chk && gramos_chk && composicion_chk && cuenta_chk) {
+        console.log("Lo tienes todo bien na pero tu eres una bestia no joda")
+    } 
 })
