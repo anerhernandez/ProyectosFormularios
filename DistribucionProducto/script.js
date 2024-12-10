@@ -6,7 +6,7 @@ document.getElementById("enviar").addEventListener("click", function (event) {
     let destinatario = document.getElementById("destinatario").value;
     let gramos = parseInt(document.getElementById("gramos").value);
     let composicion = document.getElementById("composicion").value;
-    let cuenta = document.getElementById("cuenta");
+    let cuenta = document.getElementById("cuenta").value;
 
     let fecha_chk = 0;
     let cocinero_chk = 0;
@@ -87,6 +87,16 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         document.getElementById("scomposicion").style.color = "red"
     }
     //regex cuenta_chk
-
+    let text_cuenta = '([' + '^\\d^' + '\\W^ñll]{2})(' + '\\' + 'd{2})' + '(_)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(_)' + '(' + '\\' + 'd)' + '(' + '\\' + 'd)';
+    let resultado_cuenta = cuenta.match(text_cuenta)
+    if (resultado_cuenta !== null) {
+        document.getElementById("scuenta").textContent = "Patrón de cuenta"
+        document.getElementById("scuenta").style.color = "green"
+        composicion_chk = 1
+    } else {
+        document.getElementById("scuenta").textContent = "Patrón de cuenta erróneo"
+        document.getElementById("scuenta").style.color = "red"
+    }
+    // ([a-zA-Z]{2})(\d{2})(_)(\d{12})(_)(\d)(\d);
 
 })
