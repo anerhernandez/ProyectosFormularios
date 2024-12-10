@@ -87,16 +87,43 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         document.getElementById("scomposicion").style.color = "red"
     }
     //regex cuenta_chk
-    let text_cuenta = '([' + '^\\d^' + '\\W^ñll]{2})(' + '\\' + 'd{2})' + '(_)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(_)' + '(' + '\\' + 'd)' + '(' + '\\' + 'd)';
+    let text_cuenta = '([' + '^\\d^' + '\\W^ñ]{1})' +'([' + '^\\d^' + '\\W^ñ]{1})('+  '\\' + 'd{2})' + '(_)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(_)' + '(' + '\\' + 'd)' + '(' + '\\' + 'd)';
+    let letras_valores = {
+        a : 1,b : 2,c : 3,d : 4,e : 5,f : 6, g : 7, h : 8, i : 9,j : 10,k : 11, l : 12,m : 13,
+        n : 14,o : 15,p : 16,q : 17,r : 18,s : 19,t : 20,u : 21,v : 22,w : 23,x : 24,y : 25,z : 26,
+    };
     let resultado_cuenta = cuenta.match(text_cuenta)
     if (resultado_cuenta !== null) {
-        document.getElementById("scuenta").textContent = "Patrón de cuenta"
+        let letra1 = (resultado_cuenta[1]).toLowerCase();
+        let letra2 = (resultado_cuenta[2]).toLowerCase();
+        let sumaletras = 0
+        console.log(resultado_cuenta)
+        Object.entries(letras_valores).forEach(([key, value]) => {
+            if (key == letra1 || key == letra2) {
+                sumaletras += value
+            }
+          });
+        console.log(sumaletras)
+        if (sumaletras != resultado_cuenta[3]) {
+            console.log("La suma de letras ta mal mamaguebo. Asegúrate de si la suma de letras da menor que 10, escribir un 0 delante")
+        } else {
+            console.log("La suma de letras ta bien, gué grande")
+            let sumadigitos1 = 0
+            let sumadigitos2 = 0
+            
+        }
+
+
+
+
+
+
+        document.getElementById("scuenta").textContent = "Patrón de cuenta válido"
         document.getElementById("scuenta").style.color = "green"
         composicion_chk = 1
     } else {
         document.getElementById("scuenta").textContent = "Patrón de cuenta erróneo"
         document.getElementById("scuenta").style.color = "red"
     }
-    // ([a-zA-Z]{2})(\d{2})(_)(\d{12})(_)(\d)(\d);
 
 })
