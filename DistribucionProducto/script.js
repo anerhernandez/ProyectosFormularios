@@ -73,21 +73,23 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         gramos_chk = 1
     }
     //regex composicion_chk
-
-    //Composición: estará formado por una cantidad en gramos seguida de dos conjuntos de una o    
-    // dos letras seguidas o no de un número. (ej. 200gC3OH7)
     let text_comp = '(\\' + 'd{3,4})(g)([a-zA-Z]{1,2})(' + '\\' + 'd)([a-zA-Z]{1,2})(' + '\\' + 'd)';
     let resultado_comp = composicion.match(text_comp)
     if (resultado_comp !== null) {
-        document.getElementById("scomposicion").textContent = "Composición validada"
-        document.getElementById("scomposicion").style.color = "green"
-        composicion_chk = 1
+        if (resultado_comp[1] != gramos) {
+            document.getElementById("scomposicion").textContent = "Los gramos en la composición deben ser iguales que los gramos escritos arriba"
+            document.getElementById("scomposicion").style.color = "red"
+        } else {
+            document.getElementById("scomposicion").textContent = "Composición validada"
+            document.getElementById("scomposicion").style.color = "green"
+            composicion_chk = 1
+        }
     } else {
         document.getElementById("scomposicion").textContent = "La composición es errónea"
         document.getElementById("scomposicion").style.color = "red"
     }
     //regex cuenta_chk
-    let text_cuenta = '([' + '^\\d^' + '\\W^ñ]{1})' +'([' + '^\\d^' + '\\W^ñ]{1})('+  '\\' + 'd{2})' + '(_)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(_)' + '(' + '\\' + 'd)' + '(' + '\\' + 'd)';
+    let text_cuenta = '([' + '^\\d^' + '\\W^ñ]{1})' +'([' + '^\\d^' + '\\W^ñ]{1})('+  '\\' + 'd{2})' + '(_)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(_)' + '(' + '\\' + 'd{2})' + '(' + '\\' + 'd{2})';
     let letras_valores = {
         a : 1,b : 2,c : 3,d : 4,e : 5,f : 6, g : 7, h : 8, i : 9,j : 10,k : 11, l : 12,m : 13,
         n : 14,o : 15,p : 16,q : 17,r : 18,s : 19,t : 20,u : 21,v : 22,w : 23,x : 24,y : 25,z : 26,
@@ -97,15 +99,14 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         let letra1 = (resultado_cuenta[1]).toLowerCase();
         let letra2 = (resultado_cuenta[2]).toLowerCase();
         let sumaletras = 0
+        console.log(resultado_cuenta)
         Object.entries(letras_valores).forEach(([key, value]) => {
             if (key == letra1 || key == letra2) {
                 sumaletras += value
             }
           });
         if (sumaletras != resultado_cuenta[3]) {
-            console.log("La suma de letras ta mal mamaguebo. Asegúrate de si la suma de letras da menor que 10, escribir un 0 delante")
         } else {
-            console.log("La suma de letras ta bien, gué grande")
             let primeros_6 = resultado_cuenta[5].split("")
             let sumaprimeros6 = 0
             let ultimos_6 = resultado_cuenta[6].split("")
@@ -116,13 +117,20 @@ document.getElementById("enviar").addEventListener("click", function (event) {
             ultimos_6.forEach(element => {
                 sumaultimos6 += parseInt(element)
             });
-            if ((sumaprimeros6 % 6 == resultado_cuenta[8]) && (sumaultimos6 % 6 == resultado_cuenta[9])) {
-                console.log("El calculo de los números ta correcto, qué crack")
+            //Cambiar la suma de los 6 primeros y ultimos numeros a string
+            sumaprimeros6 = (parseInt((sumaprimeros6 / 6)).toString())
+            sumaultimos6 = (parseInt((sumaultimos6 / 6)).toString())
+            if (sumaprimeros6.length == 1) {
+                sumaprimeros6 = "0" + sumaprimeros6
+            }
+            if (sumaultimos6.length == 1) {
+                sumaultimos6 = "0" + sumaultimos6
+            }
+            if ((sumaprimeros6 == resultado_cuenta[8]) && (sumaultimos6 == resultado_cuenta[9])) {
                 cuenta_chk = 1
                 document.getElementById("scuenta").textContent = "Patrón de cuenta válido y valores correctos"
                 document.getElementById("scuenta").style.color = "green"
             } else {
-                console.log("El calculo de los números ta muy incorrecto, mira a ver qué tienes mal mamabicho")
                 document.getElementById("scuenta").textContent = "Patrón de cuenta válido pero valores incorrectos"
                 document.getElementById("scuenta").style.color = "red"
             }
@@ -132,6 +140,10 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         document.getElementById("scuenta").style.color = "red"
     }
     if (fecha_chk && cocinero_chk && destinatario_chk && gramos_chk && composicion_chk && cuenta_chk) {
-        console.log("Lo tienes todo bien na pero tu eres una bestia no joda")
+        document.getElementById("allchecked").textContent = "Lo tienes todo bien na pero tu eres una bestia no joda"
+        document.getElementById("ncuenta").textContent = "Número de cuenta al que ingresar la vaina: " + cuenta.split('_').join('')
+    }else{
+        document.getElementById("allchecked").textContent = ""
+         document.getElementById("ncuenta").textContent = ""
     } 
 })

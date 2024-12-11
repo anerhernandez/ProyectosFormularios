@@ -9,48 +9,48 @@
 
 <body>
     <form action="" id="formulario" name="formulario">
-        <i>Patrón Fecha: Una fecha válida (real)</i><br>
+        <i>Patrón Fecha: <br>Una fecha válida (real)</i><br>
         <span id="sfecha"></span><br>
         <label for="fecha">Fecha</label>
         <input type="date" name="fecha" id="fecha" required>
 
-        <br><br>
+        <br><hr>
 
-        <i>Patrón Cocinero: <b>Será un nombre en clave formado por dos letras en mayúscula, un símbolo y cuatro    
+        <i>Patrón Cocinero: <br><b>Será un nombre en clave formado por dos letras en mayúscula, un símbolo y cuatro    
             dígitos (ej. WW$1234)</b></i><br>
         <span id="scocinero"></span><br>
         <label for="cocinero">Cocinero</label>
-        <input type="text" name="cocinero" id="cocinero">
+        <input type="text" name="cocinero" id="cocinero" placeholder="WW$1234">
 
-        <br><br>
+        <br><hr>
 
-        <i>Patrón Destinatario: <b>Estará formado por dos o tres letras mayúsculas correspondientes al estado, un    
-            guión bajo, el nombre de la ciudad en minúsculas, dos puntos, y el código de distrito de 4 digitos 
+        <i>Patrón Destinatario: <br><b>Estará formado por dos o tres letras mayúsculas correspondientes al estado, un    
+            guión bajo, <br>el nombre de la ciudad en minúsculas, dos puntos, y el código de distrito de 4 digitos 
             (ej. NM_alburquerque:1234).</b></i><br>
         <span id="sdestinatario"></span><br>
         <label for="destinatario">Destinatario</label>
-        <input type="text" name="destinatario" id="destinatario">
+        <input type="text" name="destinatario" id="destinatario" placeholder="NM_alburquerque:1234">
 
-        <br><br>
+        <br><hr>
 
-        <i>Patrón gramos: <b>Será un número del 100 al 5000.</b></i><br>
+        <i>Patrón gramos: <br><b>Será un número del 100 al 5000.</b></i><br>
         <span id="sgramos"></span><br>
         <label for="gramos">Gramos</label>
-        <input type="number" name="gramos" id="gramos" min="100" max="5000">
+        <input type="number" name="gramos" id="gramos" min="100" max="5000" placeholder="200">
 
-        <br><br>
+        <br><hr>
 
-        <i>Patrón Composición: <b>Estará formado por una cantidad en gramos seguida de dos conjuntos de una o    
+        <i>Patrón Composición: <br><b>Estará formado por una cantidad en gramos seguida de dos conjuntos de una o    
             dos letras seguidas o no de un número. (ej. 200gC3OH7)</b></i><br>
         <span id="scomposicion"></span><br>
         <label for="composicion">Composición</label>
-        <input type="text" name="composicion" id="composicion">
+        <input type="text" name="composicion" id="composicion" placeholder="200gC3OH7">
 
-        <br><br>
+        <br><hr>
 
         <i>Patrón Cuenta: 
             Número de cuenta de EEUU: supongamos que un número de cuenta estadounidense tiene el    
-            siguiente formato:<br>
+            siguiente formato:<br><br>
             <b>•Dos letras: suponemos que el valor de cada letra es del 1 al 26 (no hay ñ ni    
             ll).<br>
             •Dos dígitos: debe corresponderse con la suma de la primera letra y la    
@@ -59,17 +59,19 @@
             •Doce dígitos de cuenta.<br>   
             •Un guión.<br>   
             •Dos dígitos de control: los dos primeros deben ser la suma de los 6 primeros   
-            dígitos de la cuenta dividido entre 6 y extrayendo solamente su parte entera;
+            dígitos<br> de la cuenta dividido entre 6 y extrayendo solamente su parte entera;
             y los dos últimos exactamente igual, pero con los 6 siguientes.<br>
             •Si el número está correcto se colocará en un campo de texto al lado del    
             anterior, pero sin guiones: solamente los números y las letra</b></i><br>
         <span id="scuenta"></span><br>
         <label for="cuenta">Número de cuenta (EEUU)</label>
         <input type="text" name="cuenta" id="cuenta">
-
+        
         <br><br>
-
-        <br><br><button type="submit" id="enviar">Enviar</button>
+        <span id="ncuenta"></span>
+        <hr>
+        <button type="submit" id="enviar">Enviar</button><br>
+        <span id="allchecked"></span>
     </form>
     <script src="script.js"></script>
 </body>
