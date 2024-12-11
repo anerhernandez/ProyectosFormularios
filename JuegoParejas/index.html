@@ -4,48 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Parejas - Simpson</title>
-    <style>
-        .game-board {
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        .game-board td {
-            width: 200px;
-            height: 200px;
-            background-color: lightblue;
-            text-align: center;
-            vertical-align: middle;
-            cursor: pointer;
-            position: relative;
-            border: 2px solid black;
-        }
-        .game-board td img {
-            display: none;
-            width: 80%;
-            height: 80%;
-        }
-        .matched {
-            background-color: lightgreen;
-            pointer-events: none;
-        }
-        .score-board {
-            text-align: center;
-            font-size: 1.2em;
-        }
-        #score {
-            width: 50px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <table class="game-board">
         <!-- Las filas y celdas serán generadas dinámicamente -->
     </table>
     <div class="score-board">
-        <label for="score">Score:</label>
+        <label for="score">Puntuación:</label>
         <input type="text" id="score" value="0" readonly>
     </div>
+    <span id="feedback"></span><br>
+    <span id="errores"></span><br>
     <script src="game.js"></script>
 </body>
 </html>

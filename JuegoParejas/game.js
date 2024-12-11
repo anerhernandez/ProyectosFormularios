@@ -3,13 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
         "homer", "marge", "bart", "lisa", "maggie", "krusty",
         "homer", "marge", "bart", "lisa", "maggie", "krusty"
     ];
-    const shuffledCharacters = characters.sort(() => Math.random() - 0.5);
+    const personajesmezclados = characters.sort(() => Math.random() - 0.5);
 
-    const gameBoard = document.querySelector(".game-board");
+    const tablero = document.querySelector(".game-board");
     const scoreDisplay = document.getElementById("score");
     let firstCard = null;
     let secondCard = null;
     let score = 0;
+    let errores = 0;
 
     // Crear tablero
     for (let i = 0; i < 3; i++) {
@@ -19,14 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
             cell.classList.add("card");
             const img = document.createElement("img");
             const charIndex = i * 4 + j;
-            img.src = `images/${shuffledCharacters[charIndex]}.png`;
-            img.alt = shuffledCharacters[charIndex];
+            img.src = `images/${personajesmezclados[charIndex]}.png`;
+            img.alt = personajesmezclados[charIndex];
             cell.appendChild(img);
-            cell.dataset.id = shuffledCharacters[charIndex];
+            cell.dataset.id = personajesmezclados[charIndex];
             cell.addEventListener("click", revealCard);
             row.appendChild(cell);
         }
-        gameBoard.appendChild(row);
+        tablero.appendChild(row);
     }
 
     function revealCard(event) {
@@ -57,17 +58,22 @@ document.addEventListener("DOMContentLoaded", () => {
             score++;
             scoreDisplay.value = score;
             resetCards();
+            document.getElementById("feedback").textContent = "Pareja encontrada"
         } else {
             setTimeout(() => {
                 firstCard.querySelector("img").style.display = "none";
                 secondCard.querySelector("img").style.display = "none";
                 resetCards();
+                errores++;
+                document.getElementById("feedback").textContent = "Tas equivocado."
+                document.getElementById("errores").textContent = "Errores: " + errores
             }, 1000);
         }
+        
     }
-
     function resetCards() {
         firstCard = null;
         secondCard = null;
     }
 });
+

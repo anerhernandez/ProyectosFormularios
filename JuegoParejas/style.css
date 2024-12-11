@@ -1,0 +1,31 @@
+.game-board {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+.game-board td {
+    width: 200px;
+    height: 200px;
+    background-color: lightblue;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid black;
+}
+.game-board td img {
+    display: none;
+    width: 80%;
+    height: 80%;
+}
+.matched {
+    background-color: lightgreen;
+    pointer-events: none;
+}
+.score-board {
+    text-align: center;
+    font-size: 1.2em;
+}
+#score {
+    width: 50px;
+    text-align: center;
+}
