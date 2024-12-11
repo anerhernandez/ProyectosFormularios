@@ -32,12 +32,12 @@ document.getElementById("enviar").addEventListener("click", function (event) {
     }
     
     //regex cocinero_chk
-    let text_coci = new RegExp('([A-Z]{2})(' + '\\' + 'W{1})(' + '\\' + 'd{4})');
-    let resultado_coci = text_coci.test(cocinero)
+    let text_coci = ('([A-Z]{2})(' + '\\' + 'W{1})(' + '\\' + 'd{4})$');
+    let resultado_coci = cocinero.match(text_coci)
     if (cocinero == "") {
         document.getElementById("scocinero").textContent = "El campo está vacío"
         document.getElementById("scocinero").style.color = "red"
-    } else if (resultado_coci) {
+    } else if (resultado_coci != null) {
         document.getElementById("scocinero").textContent = "Campo validado"
         document.getElementById("scocinero").style.color = "green"
         cocinero_chk = 1
@@ -47,12 +47,12 @@ document.getElementById("enviar").addEventListener("click", function (event) {
     }
 
     //regex destinatario_chk
-    let text_desti = new RegExp('([A-Z]{2,3})(_)([a-z]{12})(:)(' + '\\' + 'd{4})');
-    let resultado_desti = text_desti.test(destinatario)
+    let text_desti = ('([A-Z]{2,3})(_)([a-z]{12})(:)(' + '\\' + 'd{4})$');
+    let resultado_desti = destinatario.match(text_desti)
     if (destinatario == "") {
         document.getElementById("sdestinatario").textContent = "El campo está vacío"
         document.getElementById("sdestinatario").style.color = "red"
-    } else if (resultado_desti) {
+    } else if (resultado_desti != null) {
         document.getElementById("sdestinatario").textContent = "Campo validado"
         document.getElementById("sdestinatario").style.color = "green"
         destinatario_chk = 1
@@ -73,7 +73,7 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         gramos_chk = 1
     }
     //regex composicion_chk
-    let text_comp = '(\\' + 'd{3,4})(g)([a-zA-Z]{1,2})(' + '\\' + 'd)([a-zA-Z]{1,2})(' + '\\' + 'd)';
+    let text_comp = '(\\' + 'd{3,4})(g)([a-zA-Z]{1,2})(' + '\\' + 'd)([a-zA-Z]{1,2})(' + '\\' + 'd)$';
     let resultado_comp = composicion.match(text_comp)
     if (resultado_comp !== null) {
         if (resultado_comp[1] != gramos) {
@@ -89,7 +89,7 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         document.getElementById("scomposicion").style.color = "red"
     }
     //regex cuenta_chk
-    let text_cuenta = '([' + '^\\d^' + '\\W^ñ]{1})' +'([' + '^\\d^' + '\\W^ñ]{1})('+  '\\' + 'd{2})' + '(-)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(-)' + '(' + '\\' + 'd{2})' + '(' + '\\' + 'd{2})';
+    let text_cuenta = '([' + '^\\d^' + '\\W^ñ]{1})' +'([' + '^\\d^' + '\\W^ñ]{1})('+  '\\' + 'd{2})' + '(-)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(-)' + '(' + '\\' + 'd{2})' + '(' + '\\' + 'd{2}$)';
     let letras_valores = {
         a : 1,b : 2,c : 3,d : 4,e : 5,f : 6, g : 7, h : 8, i : 9,j : 10,k : 11, l : 12,m : 13,
         n : 14,o : 15,p : 16,q : 17,r : 18,s : 19,t : 20,u : 21,v : 22,w : 23,x : 24,y : 25,z : 26,
@@ -133,7 +133,7 @@ document.getElementById("enviar").addEventListener("click", function (event) {
                 document.getElementById("scuenta").style.color = "green"
             } else {
                 document.getElementById("scuenta").textContent = "Patrón de cuenta válido pero valores incorrectos"
-                document.getElementById("scuenta").style.color = "red"
+                document.getElementById("scuenta").style.color = "orange"
             }
         }
     } else {
@@ -142,9 +142,11 @@ document.getElementById("enviar").addEventListener("click", function (event) {
     }
     if (fecha_chk && cocinero_chk && destinatario_chk && gramos_chk && composicion_chk && cuenta_chk) {
         document.getElementById("allchecked").textContent = "Todos los campos han sido comprobados"
+        document.getElementById("allchecked").style.color = "green"
         document.getElementById("ncuenta").textContent = "Número de cuenta al que ingresar el dinero: " + cuenta.split('-').join('')
     }else{
         document.getElementById("allchecked").textContent = "Hay campos incorrectos"
-         document.getElementById("ncuenta").textContent = ""
+        document.getElementById("allchecked").style.color = "red"
+        document.getElementById("ncuenta").textContent = ""
     } 
 })
