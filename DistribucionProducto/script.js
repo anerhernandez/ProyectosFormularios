@@ -89,24 +89,28 @@ document.getElementById("enviar").addEventListener("click", function (event) {
         document.getElementById("scomposicion").style.color = "red"
     }
     //regex cuenta_chk
-    let text_cuenta = '([' + '^\\d^' + '\\W^ñ]{1})' +'([' + '^\\d^' + '\\W^ñ]{1})('+  '\\' + 'd{2})' + '(_)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(_)' + '(' + '\\' + 'd{2})' + '(' + '\\' + 'd{2})';
+    let text_cuenta = '([' + '^\\d^' + '\\W^ñ]{1})' +'([' + '^\\d^' + '\\W^ñ]{1})('+  '\\' + 'd{2})' + '(-)' + '(\\' + 'd{6})' + '(\\' + 'd{6})' + '(-)' + '(' + '\\' + 'd{2})' + '(' + '\\' + 'd{2})';
     let letras_valores = {
         a : 1,b : 2,c : 3,d : 4,e : 5,f : 6, g : 7, h : 8, i : 9,j : 10,k : 11, l : 12,m : 13,
         n : 14,o : 15,p : 16,q : 17,r : 18,s : 19,t : 20,u : 21,v : 22,w : 23,x : 24,y : 25,z : 26,
     };
+    //Comprobación sobre si el patrón está bien escrito
     let resultado_cuenta = cuenta.match(text_cuenta)
     if (resultado_cuenta !== null) {
         let letra1 = (resultado_cuenta[1]).toLowerCase();
         let letra2 = (resultado_cuenta[2]).toLowerCase();
         let sumaletras = 0
-        console.log(resultado_cuenta)
+        //Se recorre el objeto de letras y guarda en una variable la suma de sus letras acorde con su valor en el objeto
         Object.entries(letras_valores).forEach(([key, value]) => {
             if (key == letra1 || key == letra2) {
                 sumaletras += value
             }
           });
-        if (sumaletras != resultado_cuenta[3]) {
-        } else {
+        //Convertir la suma de letras de string a número (para añadirle un 0 delante si es necesario)
+        sumaletras = sumaletras.toString()
+        sumaletras = sumaletras.length == 1 ? "0" + sumaletras: sumaletras
+        //Convertir la serie de 12 números de string a numero para poder operar
+        if (sumaletras == resultado_cuenta[3]) {
             let primeros_6 = resultado_cuenta[5].split("")
             let sumaprimeros6 = 0
             let ultimos_6 = resultado_cuenta[6].split("")
@@ -117,15 +121,12 @@ document.getElementById("enviar").addEventListener("click", function (event) {
             ultimos_6.forEach(element => {
                 sumaultimos6 += parseInt(element)
             });
-            //Cambiar la suma de los 6 primeros y ultimos numeros a string
+            //Cambiar la suma de los 6 primeros y ultimos numeros a string y añadirles 0 si son menores que 10
             sumaprimeros6 = (parseInt((sumaprimeros6 / 6)).toString())
             sumaultimos6 = (parseInt((sumaultimos6 / 6)).toString())
-            if (sumaprimeros6.length == 1) {
-                sumaprimeros6 = "0" + sumaprimeros6
-            }
-            if (sumaultimos6.length == 1) {
-                sumaultimos6 = "0" + sumaultimos6
-            }
+            sumaprimeros6 = sumaprimeros6.length == 1 ? "0" + sumaprimeros6: ""
+            sumaultimos6 = sumaultimos6.length == 1 ? "0" + sumaultimos6: ""
+
             if ((sumaprimeros6 == resultado_cuenta[8]) && (sumaultimos6 == resultado_cuenta[9])) {
                 cuenta_chk = 1
                 document.getElementById("scuenta").textContent = "Patrón de cuenta válido y valores correctos"
@@ -136,14 +137,14 @@ document.getElementById("enviar").addEventListener("click", function (event) {
             }
         }
     } else {
-        document.getElementById("scuenta").textContent = "Patrón de cuenta erróneo"
+        document.getElementById("scuenta").textContent = "Patrón de cuenta erróneo, La suma de letras es incorrecta"
         document.getElementById("scuenta").style.color = "red"
     }
     if (fecha_chk && cocinero_chk && destinatario_chk && gramos_chk && composicion_chk && cuenta_chk) {
-        document.getElementById("allchecked").textContent = "Lo tienes todo bien na pero tu eres una bestia no joda"
-        document.getElementById("ncuenta").textContent = "Número de cuenta al que ingresar la vaina: " + cuenta.split('_').join('')
+        document.getElementById("allchecked").textContent = "Todos los campos han sido comprobados"
+        document.getElementById("ncuenta").textContent = "Número de cuenta al que ingresar el dinero: " + cuenta.split('-').join('')
     }else{
-        document.getElementById("allchecked").textContent = ""
+        document.getElementById("allchecked").textContent = "Hay campos incorrectos"
          document.getElementById("ncuenta").textContent = ""
     } 
 })
